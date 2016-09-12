@@ -1,0 +1,9 @@
+<% UserCustomField.sorted.where(:field_format => 'string').each do |custom_field| %>
+    <p>
+      <label><%= h custom_field.name %></label>
+      <%= text_field_tag "settings[mapping][#{custom_field.id}]",
+                         settings['mapping'][custom_field.id.to_s],
+                         :placeholder => l(:label_ldap_attribute_name),
+                         :size => 30 %>
+    </p>
+<% end %>
