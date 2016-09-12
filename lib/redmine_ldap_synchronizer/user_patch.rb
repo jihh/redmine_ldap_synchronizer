@@ -45,19 +45,15 @@ module RedmineLdapSynchronizer
                                           :filter => search_filter,
                                           :attributes => search_attrs,
                                           :size => 1
-      if result_set.empty?
-        # Not Found
-        false
-      else
+      unless result_set.empty?
         entry = result_set.first
         self.custom_field_values = mapping.inject({}) do |hash, pair|
           hash[pair.first] = AuthSourceLdap.get_attr entry, pair.last
           hash
         end
-        true
       end
     rescue Exception => e
-      false
+      logger.warn e.message
     end
 
   end
