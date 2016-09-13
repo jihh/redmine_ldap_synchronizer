@@ -15,4 +15,5 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 require 'redmine_ldap_synchronizer/auth_source_ldap_patch'
+require 'redmine_ldap_synchronizer/issue_query_patch'
 require 'redmine_ldap_synchronizer/user_patch'
