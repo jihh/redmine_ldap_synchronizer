@@ -15,28 +15,28 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 module RedmineLdapSynchronizer
-  module UserPatch
+  module AuthSourceLdapPatch
     extend ActiveSupport::Concern
-    included do
-      before_save :synchronize_ldap_information
-    end
 
-    def synchronize_ldap_information
-      return unless self.auth_source.is_a?(AuthSourceLdap)
-      mapping = Setting.plugin_redmine_ldap_synchronizer['mapping'].select { |k, v| v.present? }
-      return if mapping.empty?
-
-      result = self.auth_source.get_attributes self.login, mapping.values.uniq
-      unless result.empty?
-        self.custom_field_values = mapping.inject({}) do |hash, pair|
-          hash[pair.first] = result[pair.last]
-          hash
+    def get_attributes(login, attributes=[])
+      result = {}
+      search_filter = base_filter & Net::LDAP::Filter.eq(self.attr_login, login)
+      ldap_connection = initialize_ldap_con(self.account, self.account_password)
+      ldap_connection.search :base => self.base_dn,
+                             :filter => search_filter,
+                             :attributes => attributes,
+                             :size => 1 do |entry|
+        attributes.each do |attr_name|
+          result[attr_name] = AuthSourceLdap.get_attr entry, attr_name
         end
       end
+      result
+    rescue *NETWORK_EXCEPTIONS => e
+      {}
     end
   end
 end
 
-if User.included_modules.exclude? RedmineLdapSynchronizer::UserPatch
-  User.send :include, RedmineLdapSynchronizer::UserPatch
+if AuthSourceLdap.included_modules.exclude? RedmineLdapSynchronizer::AuthSourceLdapPatch
+  AuthSourceLdap.send :include, RedmineLdapSynchronizer::AuthSourceLdapPatch
 end
