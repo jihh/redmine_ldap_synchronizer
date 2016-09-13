@@ -1,3 +1,4 @@
 # English strings go here for Rails i18n
 en:
   label_ldap_attribute_name: 'the name of ldap attribute'
+  label_inactive_if_not_found: 'inactive if not found'

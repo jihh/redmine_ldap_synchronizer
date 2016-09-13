@@ -1,3 +1,4 @@
 # Chinese strings go here for Rails i18n
 zh:
   label_ldap_attribute_name: 'LDAP属性的名称'
+  label_inactive_if_not_found: '如果未搜索到则禁用帐户'

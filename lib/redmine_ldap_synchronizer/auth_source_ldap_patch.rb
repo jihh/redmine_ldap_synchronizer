@@ -32,7 +32,8 @@ module RedmineLdapSynchronizer
       end
       result
     rescue *NETWORK_EXCEPTIONS => e
-      {}
+      logger.error e.message
+      nil
     end
   end
 end

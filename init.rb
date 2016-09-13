@@ -25,5 +25,5 @@ Redmine::Plugin.register :redmine_ldap_synchronizer do
   author_url 'https://github.com/jihh/redmine_ldap_synchronizer'
 
   settings :partial => 'plugin_settings/redmine_ldap_synchronizer',
-      :default => {'mapping' => {}}
+           :default => {'mapping' => {}, 'inactive' => false}
 end

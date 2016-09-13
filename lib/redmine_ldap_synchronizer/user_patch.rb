@@ -27,11 +27,15 @@ module RedmineLdapSynchronizer
       return if mapping.empty?
 
       result = self.auth_source.get_attributes self.login, mapping.values.uniq
-      unless result.empty?
-        self.custom_field_values = mapping.inject({}) do |hash, pair|
-          hash[pair.first] = result[pair.last]
-          hash
-        end
+      case
+        when result.nil?
+        when result.empty?
+          self.status = User::STATUS_LOCKED if Setting.plugin_redmine_ldap_synchronizer['inactive'] == '1'
+        else
+          self.custom_field_values = mapping.inject({}) do |hash, pair|
+            hash[pair.first] = result[pair.last]
+            hash
+          end
       end
     end
   end

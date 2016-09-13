@@ -7,3 +7,12 @@
                          :size => 30 %>
     </p>
 <% end %>
+
+<p>
+  <label>
+    <%= check_box_tag 'settings[inactive]', 1, settings['inactive'] == '1' %>
+  </label>
+  <label class="block" for="settings_inactive">
+    <%= l :label_inactive_if_not_found %>
+  </label>
+</p>
