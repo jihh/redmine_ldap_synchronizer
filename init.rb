@@ -20,7 +20,7 @@ Redmine::Plugin.register :redmine_ldap_synchronizer do
   name 'Redmine Ldap Synchronizer plugin'
   author 'Haihan Ji'
   description 'This plugin can synchronize user information from LDAP.'
-  version '0.0.1'
+  version '1.0.0'
   url 'https://github.com/jihh/redmine_ldap_synchronizer'
   author_url 'https://github.com/jihh/redmine_ldap_synchronizer'
 
