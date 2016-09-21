@@ -20,7 +20,7 @@ namespace :redmine do
     task :synchronize => :environment do
       User.active.joins(:auth_source).
           where("#{AuthSourceLdap.table_name}.type" => 'AuthSourceLdap').
-          find_each(&:save)
+          readonly(false).find_each(&:save)
     end
   end
 end

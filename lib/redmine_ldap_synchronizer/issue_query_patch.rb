@@ -81,7 +81,7 @@ module RedmineLdapSynchronizer
 
     def add_nest_custom_field_filter(owner, field)
       field_id = "custom_field_#{field.id}_of_#{owner.id}"
-      options = field.query_filter_options(self)
+      options = field.format.query_filter_options(field, self)
       options[:name] = "#{owner.name} #{field.name}"
       options[:owner] = owner
       options[:field] = field
