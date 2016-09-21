@@ -1,9 +1,10 @@
 # Redmine LDAP Synchronizer
 
-Features:
-* Synchronize user information from LDAP
-* Rake task for update all user
-* Filters for custom field of issue's user type custom field
+##Features:
+
+* __Synchronize user information from LDAP__. When you create/edit a user, plugin will update the custom fields.
+* __Rake task__. You can update all user by rask task.
+* __Extra filter__. If issue has a user type custom field A, and user has a custom filter B. Plugin provides a filter for B.
 
 ## Installation
 
@@ -20,7 +21,7 @@ You should now be able to see the plugin list in Administration -> Plugins and c
 
 After that, when user be updated, plugin will get attributes from LDAP, and put them in custom fields.
 
-### Update all user
+Update all user:
 > rake redmine:ldap:synchronize
 
 ## License
